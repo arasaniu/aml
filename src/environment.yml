@@ -1,0 +1,13 @@
+name: ecg-classification
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9  
+  - pandas
+  - numpy       
+  - matplotlib 
+  - scipy       
+  - jupyterlab  
+  - pip        
+  - pip:
