@@ -2,11 +2,11 @@ from scipy.signal import butter, lfilter, filtfilt
 import numpy as np
 
 
-def highpass_filter(data, cutoff, fs, order=4):
+def highpass_filter(data, cutoff, fs, order=4, flatten=True):
     pad_length = 15
 
     # Ensure `data` is 1D before padding
-    if len(data.shape) > 1:
+    if len(data.shape) > 1 and flatten:
         data = data.values.flatten()  # Flatten to 1D if necessary
 
     # Apply padding
