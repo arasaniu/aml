@@ -24,8 +24,19 @@ def highpass_filter(data, cutoff, fs, order=4, flatten=True):
     return filtered_sig[pad_length:-pad_length]
 
 
-def lowpass_filter(data, cutoff, fs, order=4):
+def lowpass_filter(data, cutoff, fs, order=4, flatten = True):
+    pad_length = 15
+
+    # Apply padding
+    padded_signal = np.pad(data, pad_length)
+
+    # Design high-pass filter
     nyquist = 0.5 * fs
     normal_cutoff = cutoff / nyquist
-    b, a = butter(order, normal_cutoff, btype='low', output='ba')
-    return lfilter(b, a, data)
+    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+
+    # Filter the signal
+    filtered_sig = filtfilt(b, a, padded_signal)
+
+    # Return the signal with padding removed
+    return filtered_sig[pad_length:-pad_length]
